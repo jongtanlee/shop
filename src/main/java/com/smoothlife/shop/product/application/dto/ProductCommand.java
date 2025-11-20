@@ -8,6 +8,7 @@ import java.util.UUID;
 * */
 
 public record ProductCommand(
+        UUID sellerId,
         String name,
         String description,
         BigDecimal price,
