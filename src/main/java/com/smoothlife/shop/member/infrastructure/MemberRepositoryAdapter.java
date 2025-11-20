@@ -11,21 +11,21 @@ import java.util.UUID;
 
 @Repository
 public class MemberRepositoryAdapter implements MemberRepository {
-    private final MemberRepository memberRepository;
+    private final MemberJpaRepository memberJpaRepository;
 
-    public MemberRepositoryAdapter(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
+    public MemberRepositoryAdapter(MemberJpaRepository memberJpaRepository) {
+        this.memberJpaRepository = memberJpaRepository;
     }
 
     @Override
-    public Page<Member> findAll(Pageable pageable) { return memberRepository.findAll(pageable); }
+    public Page<Member> findAll(Pageable pageable) { return memberJpaRepository.findAll(pageable); }
 
     @Override
     public Optional<Member> findById(UUID id) { return Optional.empty(); }
 
     @Override
-    public Member save(Member member) { return memberRepository.save(member); }
+    public Member save(Member member) { return memberJpaRepository.save(member); }
 
     @Override
-    public void deleteById(UUID id) { memberRepository.deleteById(id); }
+    public void deleteById(UUID id) { memberJpaRepository.deleteById(id); }
 }
