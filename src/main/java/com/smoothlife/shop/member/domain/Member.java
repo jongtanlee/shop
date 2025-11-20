@@ -1,4 +1,4 @@
-package com.smoothlife.shop.member;
+package com.smoothlife.shop.member.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -56,7 +56,8 @@ public class Member {
     @Column(name = "flag", length = 5)
     private String flag;
 
-    public Member(UUID id,
+    public Member() {}
+    private Member(UUID id,
                   String email,
                   String name,
                   String password,
@@ -71,14 +72,22 @@ public class Member {
         this.saltKey = saltKey;
         this.flag = flag;
     }
-    public Member(String id,
-                  String email,
-                  String name,
-                  String password,
-                  String phone,
-                  String saltKey,
-                  String flag) {
-        this.id = UUID.fromString(id);
+
+    public static Member create(String email,
+                                String name,
+                                String password,
+                                String phone,
+                                String saltKey,
+                                String flag) {
+        return new Member(UUID.randomUUID(), email, name, password, phone, saltKey, flag);
+    }
+
+    public void updateInformation(String email,
+                                  String name,
+                                  String password,
+                                  String phone,
+                                  String saltKey,
+                                  String flag) {
         this.email = email;
         this.name = name;
         this.password = password;
@@ -86,7 +95,6 @@ public class Member {
         this.saltKey = saltKey;
         this.flag = flag;
     }
-    public Member() {}
 
     @PrePersist
     public void prePersist() {
