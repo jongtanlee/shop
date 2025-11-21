@@ -26,16 +26,16 @@ public class PaymentRepositoryAdapter implements PaymentRepository {
 
     @Override
     public Page<Payment> findAll(Pageable pageable) {
-        return null;
+        return paymentJpaRepository.findAll(pageable);
     }
 
     @Override
     public Optional<Payment> findById(UUID id) {
-        return Optional.empty();
+        return paymentJpaRepository.findById(id);
     }
 
     @Override
     public Payment save(Payment payment) {
-        return null;
+        return paymentJpaRepository.save(payment);
     }
 }

@@ -2,7 +2,9 @@ package com.smoothlife.shop.payment.presentation;
 
 import com.smoothlife.shop.common.ResponseEntity;
 import com.smoothlife.shop.payment.application.PaymentService;
+import com.smoothlife.shop.payment.application.dto.PaymentFailureInfo;
 import com.smoothlife.shop.payment.application.dto.PaymentInfo;
+import com.smoothlife.shop.payment.presentation.dto.PaymentFailRequest;
 import com.smoothlife.shop.payment.presentation.dto.PaymentRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
@@ -15,8 +17,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${api.v1}/payments")
-@AllArgsConstructor
-//@RequiredArgsConstructor 둘중 하나만
+//@AllArgsConstructor
+@RequiredArgsConstructor// 둘중 하나만
 public class PaymentController {
     private final PaymentService paymentService;
 
@@ -33,5 +35,11 @@ public class PaymentController {
     @PostMapping("/confirm")
     public ResponseEntity<PaymentInfo> confirm(@RequestBody PaymentRequest request) {
         return paymentService.confirm(request.toCommand());
+    }
+
+    @Operation(summary = "결제 실패 기록", description = "토스 결제 실패 정보를 저장한다.")
+    @PostMapping("/fail")
+    public ResponseEntity<PaymentFailureInfo> fail(@RequestBody PaymentFailRequest request) {
+        return paymentService.recordFailure(request.toCommand());
     }
 }

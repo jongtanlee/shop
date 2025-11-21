@@ -2,13 +2,18 @@ package com.smoothlife.shop.payment.application;
 
 import com.smoothlife.shop.common.ResponseEntity;
 import com.smoothlife.shop.payment.application.dto.PaymentCommand;
+import com.smoothlife.shop.payment.application.dto.PaymentFailCommand;
+import com.smoothlife.shop.payment.application.dto.PaymentFailureInfo;
 import com.smoothlife.shop.payment.application.dto.PaymentInfo;
 import com.smoothlife.shop.payment.client.TossPaymentClient;
 import com.smoothlife.shop.payment.client.dto.TossPaymentResponse;
 import com.smoothlife.shop.payment.domain.Payment;
+import com.smoothlife.shop.payment.domain.PaymentFailure;
+import com.smoothlife.shop.payment.domain.PaymentFailureRepository;
 import com.smoothlife.shop.payment.domain.PaymentRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -18,14 +23,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final TossPaymentClient tossPaymentClient;
-//    private final PaymentFailureRepository paymentFailureRepository;
+    private final PaymentFailureRepository paymentFailureRepository;
 //    private final SellerSettlementRepository sellerSettlementRepository;
 //    private final TossPaymentClient tossPaymentClient;
 //    private final OrderService orderService;
@@ -76,7 +81,7 @@ public class PaymentService {
         return new ResponseEntity<>(HttpStatus.CREATED.value(), PaymentInfo.from(saved), 1);
     }
 
-    /*public ResponseEntity<PaymentFailureInfo> recordFailure(PaymentFailCommand command) {
+    public ResponseEntity<PaymentFailureInfo> recordFailure(PaymentFailCommand command) {
         PaymentFailure failure = PaymentFailure.from(
                 command.orderId(),
                 command.paymentKey(),
@@ -87,5 +92,5 @@ public class PaymentService {
         );
         PaymentFailure saved = paymentFailureRepository.save(failure);
         return new ResponseEntity<>(HttpStatus.OK.value(), PaymentFailureInfo.from(saved), 1);
-    }*/
+    }
 }
