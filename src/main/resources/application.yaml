@@ -3,10 +3,10 @@ spring:
     name: shop
   datasource:
     # Postgres 서버 타임존을 서울(KST)로 맞추기 위해 옵션 추가
-    url: jdbc:postgresql://localhost:5432/test?currentSchema=public&options=-c%20TimeZone=Asia/Seoul
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/test?currentSchema=public&options=-c%20TimeZone=Asia/Seoul}
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: postgres
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
   jackson:
     time-zone: Asia/Seoul
   jpa:
@@ -18,6 +18,23 @@ spring:
         format_sql: true
         jdbc:
           time_zone: Asia/Seoul
+  batch:
+    jdbc:
+      initialize-schema: never
+  task:
+    scheduling:
+      cron:
+        settlement: ${SETTLEMENT_CRON:-}
 
 api:
   v1: /api/v1
+settlement:
+  async:
+    enabled: ${SETTLEMENT_ASYNC:false}
+    pool-size: ${SETTLEMENT_ASYNC_POOL_SIZE:5}
+
+payment:
+  toss:
+    secret-key: ${TOSS_SECRET_KEY:test_sk_yZqmkKeP8gJEZ9Wl4dBOrbQRxB9l}
+    success-url: ${TOSS_SUCCESS_URL:http://localhost:8080/payments/success.html}
+    fail-url: ${TOSS_FAIL_URL:http://localhost:8080/payments/fail.html}
