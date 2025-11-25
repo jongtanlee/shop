@@ -55,3 +55,12 @@ management:
 #    secret-key: ${TOSS_SECRET_KEY:test_sk_yZqmkKeP8gJEZ9Wl4dBOrbQRxB9l}
 #    success-url: ${TOSS_SUCCESS_URL:http://localhost:8080/payments/success.html}
 #    fail-url: ${TOSS_FAIL_URL:http://localhost:8080/payments/fail.html}
+kafka:
+  # 로컬 도커 브로커 포트
+  bootstrap-servers: localhost:29092
+  topic:
+    # 주문 이벤트를 주고받는 토픽 이름
+    async-orders: shop.async-orders.v1
+  consumer:
+    # 샘플 컨슈머 그룹
+    group-id: shop-async-consumer

@@ -38,6 +38,8 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'   //eureka 연결 라이브러리
     implementation 'org.springframework.cloud:spring-cloud-starter-config'                  //config 정보 연결
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'               //bootstrap.yaml을 읽어봐서 먼저 적용하기 위한 라이브러리
+    //kafka
+    implementation 'org.springframework.kafka:spring-kafka'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
