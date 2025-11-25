@@ -5,6 +5,7 @@ import com.smoothlife.shop.member.domain.Member;
 import com.smoothlife.shop.member.application.dto.MemberCommand;
 import com.smoothlife.shop.member.application.dto.MemberInfo;
 import com.smoothlife.shop.member.infrastructure.MemberJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +17,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class MemberService {
-    @Autowired
-    private MemberJpaRepository memberRepository;
+    private final MemberJpaRepository memberRepository;
 
     public ResponseEntity<List<MemberInfo>> findAll(Pageable pageable) {
         Page<Member> page = memberRepository.findAll(pageable);
